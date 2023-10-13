@@ -69,17 +69,17 @@ steps:
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/helm:latest
   commands:
-  - /run-helm.sh list -n nmsw-dev
-  - helm upgrade --install clamav ./charts/clamav/ -f ./charts/clamav/values.yaml -n nmsw-dev
+  - /run-helm.sh list -n cms-dev
+  - helm upgrade --install cms-clamav ./charts/clamav/ -f ./charts/clamav/values.yaml -n cms-dev
   environment:
     KUBE_CERTIFICATE_AUTHORITY_DATA:
-      from_secret: DEV_NMSW_KUBE_CA_DATA
+      from_secret: DEV_KUBE_CA_DATA
     KUBE_CLUSTER_NAME:
-      from_secret: DEV_NMSW_KUBE_CLUSTER_NAME
+      from_secret: DEV_KUBE_CLUSTER_NAME
     KUBE_SERVER:
-      from_secret: DEV_NMSW_KUBE_SERVER
+      from_secret: DEV_KUBE_SERVER
     KUBE_TOKEN:
-      from_secret: DEV_NMSW_KUBE_TOKEN
+      from_secret: DEV_KUBE_TOKEN
   when:
     branch:
     - master
@@ -90,17 +90,38 @@ steps:
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/helm:latest
   commands:
-  - /run-helm.sh list -n nmsw-staging
-  - helm upgrade --install clamav ./charts/clamav/ -f ./charts/clamav/values.yaml -n nmsw-staging
+  - /run-helm.sh list -n cms-sit
+  - helm upgrade --install cms-clamav ./charts/clamav/ -f ./charts/clamav/values.yaml -n cms-sit
   environment:
     KUBE_CERTIFICATE_AUTHORITY_DATA:
-      from_secret: STAGING_NMSW_KUBE_CA_DATA
+      from_secret: SIT_KUBE_CA_DATA
     KUBE_CLUSTER_NAME:
-      from_secret: STAGING_NMSW_KUBE_CLUSTER_NAME
+      from_secret: SIT_KUBE_CLUSTER_NAME
     KUBE_SERVER:
-      from_secret: STAGING_NMSW_KUBE_SERVER
+      from_secret: SIT_KUBE_SERVER
     KUBE_TOKEN:
-      from_secret: STAGING_NMSW_KUBE_TOKEN
+      from_secret: SIT_KUBE_TOKEN
+  when:
+    event:
+    - promote
+    target:
+    - sit
+
+- name: deploy_to_staging
+  pull: if-not-exists
+  image: quay.io/ukhomeofficedigital/helm:latest
+  commands:
+  - /run-helm.sh list -n cms-staging
+  - helm upgrade --install cms-clamav ./charts/clamav/ -f ./charts/clamav/values.yaml -n cms-staging
+  environment:
+    KUBE_CERTIFICATE_AUTHORITY_DATA:
+      from_secret: STAGING_KUBE_CA_DATA
+    KUBE_CLUSTER_NAME:
+      from_secret: STAGING_KUBE_CLUSTER_NAME
+    KUBE_SERVER:
+      from_secret: STAGING_KUBE_SERVER
+    KUBE_TOKEN:
+      from_secret: STAGING_KUBE_TOKEN
   when:
     event:
     - promote
@@ -111,17 +132,17 @@ steps:
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/helm:latest
   commands:
-  - /run-helm.sh list -n nmsw
-  - helm upgrade --install clamav ./charts/clamav/ -f ./charts/clamav/values.yaml -n nmsw
+  - /run-helm.sh list -n cms-prod
+  - helm upgrade --install cms-clamav ./charts/clamav/ -f ./charts/clamav/values.yaml -n cms-prod
   environment:
     KUBE_CERTIFICATE_AUTHORITY_DATA:
-      from_secret: PRODUCTION_NMSW_KUBE_CA_DATA
+      from_secret: PRODUCTION_KUBE_CA_DATA
     KUBE_CLUSTER_NAME:
-      from_secret: PRODUCTION_NMSW_KUBE_CLUSTER_NAME
+      from_secret: PRODUCTION_KUBE_CLUSTER_NAME
     KUBE_SERVER:
-      from_secret: PRODUCTION_NMSW_KUBE_SERVER
+      from_secret: PRODUCTION_KUBE_SERVER
     KUBE_TOKEN:
-      from_secret: PRODUCTION_NMSW_KUBE_TOKEN
+      from_secret: PRODUCTION_KUBE_TOKEN
   when:
     event:
     - promote
