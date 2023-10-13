@@ -1,5 +1,5 @@
 apiVersion: v2
-name: cms-clamav
+name: clamav
 description: A Helm chart for deploying a clamav-http service on kubernetes
 
 # A chart can be either an 'application' or a 'library' chart.

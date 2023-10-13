@@ -89,7 +89,7 @@ steps:
   image: quay.io/ukhomeofficedigital/helm:latest
   commands:
   - /run-helm.sh list -n bfcms-dev
-  - helm upgrade --install cms-clamav ./charts/clamav/ -f ./charts/clamav/values.yaml -n bfcms-dev
+  - helm upgrade --install clamav ./charts/clamav/ -f ./charts/clamav/values.yaml -n bfcms-dev
   environment:
     KUBE_CERTIFICATE_AUTHORITY_DATA:
       from_secret: DEV_KUBE_CA_DATA
@@ -110,7 +110,7 @@ steps:
   image: quay.io/ukhomeofficedigital/helm:latest
   commands:
   - /run-helm.sh list -n bfcms-sit
-  - helm upgrade --install cms-clamav ./charts/clamav/ -f ./charts/clamav/values.yaml -n bfcms-sit
+  - helm upgrade --install clamav ./charts/clamav/ -f ./charts/clamav/values.yaml -n bfcms-sit
   environment:
     KUBE_CERTIFICATE_AUTHORITY_DATA:
       from_secret: SIT_KUBE_CA_DATA
@@ -131,7 +131,7 @@ steps:
   image: quay.io/ukhomeofficedigital/helm:latest
   commands:
   - /run-helm.sh list -n bfcms-staging
-  - helm upgrade --install cms-clamav ./charts/clamav/ -f ./charts/clamav/values.yaml -n bfcms-staging
+  - helm upgrade --install clamav ./charts/clamav/ -f ./charts/clamav/values.yaml -n bfcms-staging
   environment:
     KUBE_CERTIFICATE_AUTHORITY_DATA:
       from_secret: STAGING_KUBE_CA_DATA
@@ -152,7 +152,7 @@ steps:
   image: quay.io/ukhomeofficedigital/helm:latest
   commands:
   - /run-helm.sh list -n bfcms-prod
-  - helm upgrade --install cms-clamav ./charts/clamav/ -f ./charts/clamav/values.yaml -n bfcms-prod
+  - helm upgrade --install clamav ./charts/clamav/ -f ./charts/clamav/values.yaml -n bfcms-prod
   environment:
     KUBE_CERTIFICATE_AUTHORITY_DATA:
       from_secret: PRODUCTION_KUBE_CA_DATA
