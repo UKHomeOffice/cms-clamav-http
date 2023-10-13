@@ -37,4 +37,3 @@ The mirror utilises the recently released cvdupdate (python) tool with cron sche
 - start.sh - container entrypoint, configures cvd (signature db downloader), sets up supercronic (cron scheduler) and lighthttpd.
 - test.sh - cron job that tests the most recently downloaded signature database from /home/clam/db runs freshclam on it and if successful it will copy the files over to /home/clam/mirror which is downloaded by the clamav instances. The only reason ClamAV is installed in this container at all is to test it in this script.
 
-
